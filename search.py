@@ -72,93 +72,65 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
-def getActions(problem, solution, graph, node):
-    """
-    Returns a sequence of actions from the Start to the Solution.
-    """
-    actions = list()
-    if solution:
-        parent = node[3]
-        actions.append(node[1])
-        while parent != problem.getStartState():
-            for element in graph:
-                if element[0] == parent:
-                    parent = element[3]
-                    actions.append(element[1])
-        actions.reverse()      
-    return actions
-
-def createNewNode(successor, node):
-    """
-    Returns an array to represent the successor of a node.
-    Each node is represented as ["State", "Action", "Cost", "Parent"]
-    """ 
-    return [successor[0], successor[1], successor[2], node[0]]
-
 def depthFirstSearch(problem):
     """ Search the deepest nodes in the search tree first."""
 
     border = util.Stack()
-    graph = list()
     visited = list()
 
-    # Each node is represented as ["State", "Action", "Cost", "Parent"]
-    border.push([problem.getStartState(), None, 0, None])
+    # Each node is represented as ["State", "Actions to it"]
+    border.push([problem.getStartState(), []])
 
-    while not (border.isEmpty()):
+    while not border.isEmpty():
         node = border.pop()
         if problem.isGoalState(node[0]):
-            return getActions(problem, True, graph, node)
-        graph.append(node)
+            return node[1]
         visited.append(node[0])
         for successor in problem.getSuccessors(node[0]):
             if successor[0] not in visited:
-                border.push(createNewNode(successor, node))
-    return getActions(problem, False, graph, node)
+                border.push([successor[0], node[1]+[successor[1]]])
+    return []
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     
     border = util.Queue()
-    graph = list()
     visited = list()
 
-    # Each node is represented as ["State", "Action", "Cost", "Parent"]
-    border.push([problem.getStartState(), None, 0, None])
+    # Each node is represented as ["State", "Actions to it"]
+    border.push([problem.getStartState(), []])
 
-    while not (border.isEmpty()):
+    while not border.isEmpty():
         node = border.pop()
         if node[0] not in visited:
             if problem.isGoalState(node[0]):
-                return getActions(problem, True, graph, node)
-            graph.append(node)
+                return node[1]
             visited.append(node[0])
             for successor in problem.getSuccessors(node[0]):
                 if successor[0] not in visited:
-                    border.push(createNewNode(successor, node))
-    return getActions(problem, False, graph, node)
+                    border.push([successor[0], node[1]+[successor[1]]])
+    return []
 
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     
     border = util.PriorityQueue()
-    graph = list()
     visited = list()
 
-    # Each node is represented as ["State", "Action", "Cost", "Parent"]
-    border.push([problem.getStartState(), None, 0, None], 0)
+    # Each node is represented as ["State", "Actions to it", "Cost of Action"]
+    border.push([problem.getStartState(), [], 0], 0)
 
-    while not (border.isEmpty()):
+    while not border.isEmpty():
         node = border.pop()
         if node[0] not in visited:
             if problem.isGoalState(node[0]):
-                return getActions(problem, True, graph, node)
-            graph.append(node)
+                return node[1]
             visited.append(node[0])
             for successor in problem.getSuccessors(node[0]):
-                    border.update(createNewNode(successor, node), successor[2])
-    return getActions(problem, False, graph, node)
+                newNode = [successor[0], node[1]+[successor[1]]]
+                border.update(newNode, problem.getCostOfActions(newNode[1]))
+    return []
    
 
 def nullHeuristic(state, problem=None):
