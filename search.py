@@ -143,9 +143,23 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    
+    border = util.PriorityQueue()
+    visited = list()
 
+    # Each node is represented as ["State", "Actions to it", "Cost of Action"]
+    border.push([problem.getStartState(), [], 0], 0)
+
+    while not border.isEmpty():
+        node = border.pop()
+        if node[0] not in visited:
+            if problem.isGoalState(node[0]):
+                return node[1]
+            visited.append(node[0])
+            for successor in problem.getSuccessors(node[0]):
+                newNode = [successor[0], node[1]+[successor[1]]]
+                border.update(newNode, problem.getCostOfActions(newNode[1]) + heuristic(newNode[0], problem))
+    return []
 
 def learningRealTimeAStar(problem, heuristic=nullHeuristic):
     """Execute a number of trials of LRTA* and return the best plan found."""
