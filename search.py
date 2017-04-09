@@ -1,3 +1,8 @@
+# NOME: Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# EP 1 de MAC0425
+
+
 # search.py
 # ---------
 # Licensing Information:  You are free to use or extend these projects for
@@ -73,12 +78,12 @@ def tinyMazeSearch(problem):
     return  [s, s, w, s, w, w, s, w]
 
 def depthFirstSearch(problem):
-    """ Search the deepest nodes in the search tree first."""
+    # Search the deepest nodes in the search tree first.
 
     border = util.Stack()
     visited = list()
 
-    # Each node is represented as ["State", "Actions to it"]
+    # Each node is represented as ["State", "Actions to reach it"]
     border.push([problem.getStartState(), []])
 
     while not border.isEmpty():
@@ -88,16 +93,16 @@ def depthFirstSearch(problem):
         visited.append(node[0])
         for successor in problem.getSuccessors(node[0]):
             if successor[0] not in visited:
-                border.push([successor[0], node[1]+[successor[1]]])
+                border.push([successor[0], node[1] + [successor[1]]])
     return []
 
 def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
+    # Search the shallowest nodes in the search tree first.
     
     border = util.Queue()
     visited = list()
 
-    # Each node is represented as ["State", "Actions to it"]
+    # Each node is represented as ["State", "Actions to reach it"]
     border.push([problem.getStartState(), []])
 
     while not border.isEmpty():
@@ -108,17 +113,17 @@ def breadthFirstSearch(problem):
             visited.append(node[0])
             for successor in problem.getSuccessors(node[0]):
                 if successor[0] not in visited:
-                    border.push([successor[0], node[1]+[successor[1]]])
+                    border.push([successor[0], node[1] + [successor[1]]])
     return []
 
 
 def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
+    # Search the node of least total cost first.
     
     border = util.PriorityQueue()
     visited = list()
 
-    # Each node is represented as ["State", "Actions to it", "Cost of Action"]
+    # Each node is represented as ["State", "Actions to reach it", "Cost of Action"]
     border.push([problem.getStartState(), [], 0], 0)
 
     while not border.isEmpty():
@@ -128,7 +133,7 @@ def uniformCostSearch(problem):
                 return node[1]
             visited.append(node[0])
             for successor in problem.getSuccessors(node[0]):
-                newNode = [successor[0], node[1]+[successor[1]]]
+                newNode = [successor[0], node[1] + [successor[1]]]
                 border.update(newNode, problem.getCostOfActions(newNode[1]))
     return []
    
@@ -142,7 +147,7 @@ def nullHeuristic(state, problem=None):
 
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    """Search the node that has the lowest combined cost and heuristic first."""
+    # Search the node that has the lowest combined cost and heuristic first.
     
     border = util.PriorityQueue()
     visited = list()
@@ -158,7 +163,8 @@ def aStarSearch(problem, heuristic=nullHeuristic):
             visited.append(node[0])
             for successor in problem.getSuccessors(node[0]):
                 newNode = [successor[0], node[1]+[successor[1]]]
-                border.update(newNode, problem.getCostOfActions(newNode[1]) + heuristic(newNode[0], problem))
+                combinedCost = problem.getCostOfActions(newNode[1]) + heuristic(newNode[0], problem)
+                border.update(newNode, combinedCost)
     return []
 
 def learningRealTimeAStar(problem, heuristic=nullHeuristic):

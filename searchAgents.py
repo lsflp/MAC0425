@@ -1,3 +1,7 @@
+# NOME: Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# EP 1 de MAC0425
+
 # searchAgents.py
 # ---------------
 # Licensing Information: Please do not distribute or publish solutions to this
@@ -280,7 +284,9 @@ class CornersProblem(search.SearchProblem):
         return (self.startingPosition, []) 
 
     def isGoalState(self, state):
-        # Remember that state[0] is the real state and state[1] is a list
+        # Returns if a state is the goal state of the problem.
+
+        # Notice that state[0] is the actual state and state[1] is a list
         # with the already visited corners.
         
         if state[0] not in self.corners:
@@ -341,25 +347,26 @@ def cornersHeuristic(state, problem):
     it should be admissible (as well as consistent).
     """
 
-    notVisitedCorners = []
+    # This is an auxiliary list. It has the state and the not visited corners
+    # of the problem. At the end of the function, it the path with the minimal
+    # cost to the goal.
+    path = [state[0]]
 
     for corner in problem.corners:
         if corner not in state[1]:
-            notVisitedCorners.append(corner)
+            path.append(corner)
 
     heuristic = 0
-    position = state[0]
 
-    while len(notVisitedCorners) > 0:
-        distances = []
-        computedCorners = []
-        for corner in notVisitedCorners:
-            distances.append(util.manhattanDistance(position, corner))
-            computedCorners.append(corner)
-        heuristic += min(distances)
-        position = computedCorners[distances.index(min(distances))]
-        notVisitedCorners.remove(position)
-
+    for i in range(0, len(path)-1):
+        dist = float("inf")
+        for j in range(i+1, len(path)):
+            newDist = util.manhattanDistance(path[i], path[j])
+            if newDist < dist:
+                dist = newDist
+                path[i+1], path[j] = path[j], path[i+1]
+        heuristic += dist
+          
     return heuristic
 
 class AStarCornersAgent(SearchAgent):
