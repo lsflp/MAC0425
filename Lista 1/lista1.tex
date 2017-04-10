@@ -64,9 +64,9 @@
 	Ele é calculado como $min_{x\in A}(c(t, x)+h^*(x))$, onde $A$ é o conjunto de sucessores de $t$. Como a heurística é consistente, então $h(t)\leq c(t,t')+h(t')$. Além disso, como $h(t) \leq h^*(t)$ é o que estamos queremos provar, $h(t) \leq c(t, t') + h^*(t)$, e isso é verdade para todos os sucessores $t'$ do nó $t$. Em outras palavras, $h(t)\leq min_{x\in A}(c(t, x)+h^*(x))=h^*(t)$, logo, $h(t)\leq h^*(t)$. \qed
 	
 	\section*{Exercício Extra 1}
-	\textbf{a)} Usando a BFS (busca em largura), a ordem dos nós a serem visitados será definida por uma fila (o primeiro a entrar é o primeiro a sair). Paramos de expandir os nós quando o estado meta está na borda. Tabela 1.
+	\textbf{a)} Usando a BFS (busca em largura), a ordem dos nós a serem visitados será definida por uma fila (o primeiro a entrar é o primeiro a sair). Paramos de expandir os nós quando o estado meta está na borda (sétima linha). Tabela 1.
 	
-	\textbf{b)} Usando a DFS (busca em profundidade), a ordem dos nós a serem visitados será definida por uma pilha (o último a entrar é o primeiro a sair). Paramos de expandir os nós quando o estado meta é visitado. Tabela 2.
+	\textbf{b)} Usando a DFS (busca em profundidade), a ordem dos nós a serem visitados será definida por uma pilha (o último a entrar é o primeiro a sair). Paramos de expandir os nós quando o estado meta é visitado (sétima linha). Tabela 2.
 	
 	\section*{Exercício Extra 2}
 	
@@ -77,17 +77,23 @@
 		\caption{Expandindo com BFS}
 		\label{my-label}
 		\begin{tabular}{l|l}
-			\textbf{Nós expandidos}      & \textbf{Borda} \\ \cline{1-2}
-			                             & A              \\ \cline{1-2}
-			A                            & B, D, G        \\ \cline{1-2}
-			A, B                         & D, G           \\ \cline{1-2}
-			A, B, D                      & G, C, E        \\ \cline{1-2}
-			A, B, D, G                   & C, E, K, L     \\ \cline{1-2}
-			A, B, C, D, G                & E, K, L, F     \\ \cline{1-2}
-			A, B, C, D, E, G             & K, L, F, I     \\ \cline{1-2}
-			A, B, C, D, E, G, K          & L, F, I, O     \\ \cline{1-2}
-			A, B, C, D, E, G, K, L       & F, I, O, H     \\ \cline{1-2}
-			A, B, C, D, E, F, G, K, L    & I, O, H, J     \\ 
+			\textbf{Nós expandidos}                      & \textbf{Borda} \\ \cline{1-2}
+			                                             & A              \\ \cline{1-2}
+			A                                            & B, D, G        \\ \cline{1-2}
+			A, B                                         & D, G           \\ \cline{1-2}
+			A, B, D                                      & G, C, E        \\ \cline{1-2}
+			A, B, D, G                                   & C, E, K, L     \\ \cline{1-2}
+			A, B, C, D, G                                & E, K, L, F     \\ \cline{1-2}
+			A, B, C, D, E, G                             & K, L, F, I     \\ \cline{1-2}
+			A, B, C, D, E, G, K                          & L, F, I, O     \\ \cline{1-2}
+			A, B, C, D, E, G, K, L                       & F, I, O, H     \\ \cline{1-2}
+			A, B, C, D, E, F, G, K, L                    & I, O, H, J     \\ \cline{1-2}
+			A, B, C, D, E, F, G, I, K, L                 & O, H, J, M     \\ \cline{1-2}
+			A, B, C, D, E, F, G, I, K, L, O              & H, J, M        \\ \cline{1-2}
+			A, B, C, D, E, F, G, H, I, K, L, O           & J, M           \\ \cline{1-2}
+			A, B, C, D, E, F, G, H, I, J, K, L, O        & M              \\ \cline{1-2}
+			A, B, C, D, E, F, G, H, I, J, K, L, M, O     & N              \\ \cline{1-2}
+			A, B, C, D, E, F, G, H, I, J, K, L, M, N, O  &                \\
 		\end{tabular}
 	\end{table}
 
@@ -96,14 +102,22 @@
 		\caption{Expandindo com DFS}
 		\label{my-label}
 		\begin{tabular}{l|l}
-			\textbf{Nós expandidos}      & \textbf{Borda} \\ \cline{1-2}
-			                             & A              \\ \cline{1-2}
-			A                            & B, D, G        \\ \cline{1-2}
-			A, B                         & D, G           \\ \cline{1-2}
-			A, B, D                      & C, E, G        \\ \cline{1-2}
-			A, B, C, D                   & F, E, G        \\ \cline{1-2}
-			A, B, C, D, F                & I, J, E, G     \\ \cline{1-2}
-			A, B, C, D, F, I             & M, J, E, G     \\ 
+			\textbf{Nós expandidos}                      & \textbf{Borda} \\ \cline{1-2}
+			                                             & A              \\ \cline{1-2}
+			A                                            & B, D, G        \\ \cline{1-2}
+			A, B                                         & D, G           \\ \cline{1-2}
+			A, B, D                                      & C, E, G        \\ \cline{1-2}
+			A, B, C, D                                   & F, E, G        \\ \cline{1-2}
+			A, B, C, D, F                                & I, J, E, G     \\ \cline{1-2}
+			A, B, C, D, F, I                             & M, J, E, G     \\ \cline{1-2}
+			A, B, C, D, F, I, M                          & N, J, E, G     \\ \cline{1-2}
+			A, B, C, D, F, I, M, N                       & J, E, G        \\ \cline{1-2}
+			A, B, C, D, F, I, J, M, N                    & E, G           \\ \cline{1-2}
+			A, B, C, D, E, F, I, J, M, N                 & G              \\ \cline{1-2}
+			A, B, C, D, E, F, G, I, J, M, N              & K, L           \\ \cline{1-2}
+			A, B, C, D, E, F, G, I, J, K, M, N           & O, L           \\ \cline{1-2}
+			A, B, C, D, E, F, G, I, J, K, M, N, O        & L              \\ \cline{1-2}
+			A, B, C, D, E, F, G, H, I, J, K, L, M, N, O  &                \\
 		\end{tabular}
 	\end{table}
 			 
