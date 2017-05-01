@@ -23,9 +23,147 @@
 	\end{center}
 	
 	\section*{Exercício 1}
+	
+	Para construirmos nossa base de conhecimento, vamos nomear os fatos:
+	
+	\begin{itemize}
+		\item $a$: "o time joga bem"
+		\item $b$: "o time ganha o campeonato"
+		\item $c$: "o técnico é culpado"
+		\item $d$: "os torcedores estão contentes"
+	\end{itemize}
+	
+	Nossa base de conhecimento será, portanto:
+	
+	\begin{multicols}{4}
+		\begin{itemize}
+			\item \textbf{R1}: $a \Rightarrow b$
+			\item \textbf{R2}: $\lnot a \Rightarrow c$
+			\item \textbf{R3}: $b \Rightarrow d$
+			\item \textbf{R4}: $\lnot d$
+		\end{itemize}
+	\end{multicols}
+	
+	\textit{1. Usando regras de inferência:}
+	
+	\begin{itemize}
+		\item Contraposição em \textbf{R3}: \\ \textbf{R5}: $\lnot d \Rightarrow \lnot b$
+		\item Modus Ponens (\textbf{R4} + \textbf{R5}): \\ \textbf{R6}: $\lnot b$
+		\item Contraposição em \textbf{R1}: \\ \textbf{R7}: $\lnot b \Rightarrow \lnot a$
+		\item Modus Ponens (\textbf{R6} + \textbf{R7}): \\ \textbf{R8}: $\lnot a$
+		\item Modus Ponens (\textbf{R2} + \textbf{R8}): \\ \textbf{R9}: $c$		
+	\end{itemize}
+	
+	\qed
+	
+	\textit{2. Usando as regras de resolução:}
+	
+	Para provarmos por resolução, precisamos transformar nossa base de conhecimento na Forma Normal Conjuntiva, portanto, teremos:
+	
+	\begin{multicols}{4}
+		\begin{itemize}
+			\item \textbf{R1}: $\lnot a \lor b$
+			\item \textbf{R2}: $a \lor c$
+			\item \textbf{R3}: $\lnot b \lor d$
+			\item \textbf{R4}: $\lnot d$
+		\end{itemize}
+	\end{multicols}
+	
+	Temos que adicionar também \textbf{R5}: $\lnot c$ para fazermos a inferência baseada em resolução. Logo:
+	
+	\begin{prooftree}
+		\AxiomC{$\lnot c$}
+		\AxiomC{$a \lor c$}
+		\AxiomC{$\lnot a \lor b$}
+		\AxiomC{$\lnot b \lor d$}
+		\AxiomC{$\lnot d$}
+		\BinaryInfC{$\lnot b$}
+		\BinaryInfC{$\lnot a$}
+		\BinaryInfC{$c$}
+		\BinaryInfC{$\bot$}
+	\end{prooftree}
+	
+	\qed
 
 	\section*{Exercício 8.13}
 	
+	\textbf{a)}
+	\quad (1) $\forall s$ Cheiro$(s)$ $\Rightarrow \exists r$ Adjacente$(r, s)$ $\land$ Em$(Wumpus, r) $
+	
+	\quad \quad (2) $\forall s$ $\lnot$Cheiro$(s)$ $\Rightarrow \lnot \exists r$ Adjacente$(r, s)$ $\land$ Em$(Wumpus, r) $
+	
+	Para mostrar que as duas regras juntas equivalem a:
+	\begin{center}
+		$\forall s$ Cheiro$(s)$ $\Leftrightarrow \exists r$ Adjacente$(r, s)$ $\land$ Em$(Wumpus, r) $,
+	\end{center}
+	
+	vamos chamar:
+	
+	\begin{center}
+		\begin{itemize}
+			\item de $A$: $\forall s$ Cheiro$(s)$;
+			\item de $B$: $\exists r$ Adjacente$(r, s)$ $\land$ Em$(Wumpus, r) $
+		\end{itemize}
+	\end{center}
+	
+	Logo, temos que provar que $A \Leftrightarrow B$. Podemos ver que em (1) temos $A \Rightarrow B$, e que em (2) temos $\lnot A \Rightarrow \lnot B$. De (2), por Modus Ponens, podemos escrever $B \Rightarrow A$. Com isso, temos as duas expressões que nos permitem provar o que queremos. 
+	
+	\qed
+	
+	\textbf{b)} $\forall s$ Abismo$(s)$ $\Rightarrow (\forall r$ Adjacente$(r, s)$ $\Rightarrow$ Ventilada$(r))$. (1)
+	
+	Colocando "se não há abismo em s, então todas as localizações adjacentes a s não são ventiladas” na forma de \textbf{regra causal}, temos: $\forall s$ $\lnot$Abismo$(s)$ $\Rightarrow (\forall r$ Adjacente$(r, s)$ $\Rightarrow \lnot$ Ventilada$(r))$ (2).
+	
+	Chamando: 
+	\begin{itemize}
+		\item de A: $\forall s$ Abismo$(s)$;
+		\item de B: $\forall r$ Adjacente$(r, s)$ $\Rightarrow$ Ventilada$(r)$,
+	\end{itemize}
+	
+	temos que (1) é $A \Rightarrow B$ e (2) é $\lnot A \Rightarrow \lnot B$.
+	
+	Fazendo uma tabela verdade (na página 4), podemos ver que as expressões não são equivalentes.
+	
+	Um axioma que relaciona Adjacente($r,s$) e Abismo($r$) com o literal $\lnot$ Ventilada($s$) pode ser escrito como:
+	
+	\begin{center}
+		$\forall r, s$ (Adjacente$(r,s) \land$ $\lnot$Abismo$(r)) \Rightarrow \lnot$Ventilada($s$)
+	\end{center}
+	
 	\section*{Exercício 2}
+	
+	Para escrever um axioma de estado sucessor, temos que partir da definição:
+	
+	\begin{center}
+		\textit{P é verdade $\Leftrightarrow$ (uma ação tornou P verdade) $\lor$ P já era
+		verdade e nenhuma ação tornou P falso)} 
+	\end{center}
+	
+	Logo, aqui teremos:
+	
+	$\forall loc, s$ (Em$(Agente, loc, S) \Rightarrow$ ViradoPara$(Agente, dir, S)) \Leftrightarrow 
+	
+	" a,x,s Segura(x, Resultado(a,s))  (a = Pegar  (Presente(x,s))
+	 ((Segura(x,s)  (a  Solta)
+	
+	
+	
+	
+	
+	\newpage 
+	
+	\begin{table}[]
+		\centering
+		\caption{Tabela do item b do exercício 8.13}
+		\label{my-label}
+		\begin{tabular}{|l|l|l|l|l}
+			\cline{1-4}
+			$A$ & $B$ & $A \Rightarrow B$ & $B \Rightarrow A$ &  \\ \cline{1-4}
+			F   & F   & V                 & V                 &  \\ \cline{1-4}
+			F   & V   & V                 & F                 &  \\ \cline{1-4}
+			V   & F   & F                 & V                 &  \\ \cline{1-4}
+			V   & V   & V                 & V                 &  \\ \cline{1-4}
+		\end{tabular}
+	\end{table}
 			 
 \end{document}
