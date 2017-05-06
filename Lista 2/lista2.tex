@@ -139,12 +139,11 @@
 		verdade e nenhuma ação tornou P falso)} 
 	\end{center}
 	
-	Logo, aqui teremos:
+	Logo, aqui teremos: 
 	
-	$\forall loc, s$ (Em$(Agente, loc, S) \Rightarrow$ ViradoPara$(Agente, dir, S)) \Leftrightarrow 
+	$\forall loc, s$ (Em$(Agente, loc, $resultado$(A, s)) \Rightarrow$ ViradoPara$(Agente, dir, S)) \Leftrightarrow ((\lnot$ Em$(Agente, loc, S) \land$ ViradoPara$(Agente, dir_f, S) \land A = IrParaFrente) \lor ($ Em$(Agente, loc, S) \land \lnot$ ViradoPara$(Agente, dir, S) \land A = virar)) \lor ($ Em$(Agente, loc, S) \land $ ViradoPara$(Agente, dir, S \land A \neq (VirarParaEsquerda \lor VirarParaDireita \lor IrParaFrente))$.
 	
-	" a,x,s Segura(x, Resultado(a,s))  (a = Pegar  (Presente(x,s))
-	 ((Segura(x,s)  (a  Solta)
+	Note que temos $A = virar$ em nosso axioma. Ele depende da direção que o agente está virado em $S$ ($dir_i$) e da direção que o agente está virado em $S'$ ($dir_f$). A tabela de correspondências está na página seguinte.
 	
 	
 	
@@ -163,6 +162,24 @@
 			F   & V   & V                 & F                 &  \\ \cline{1-4}
 			V   & F   & F                 & V                 &  \\ \cline{1-4}
 			V   & V   & V                 & V                 &  \\ \cline{1-4}
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[]
+		\centering
+		\caption{Tabela do exercício 2}
+		\label{my-label}
+		\begin{tabular}{|l|l|l|ll}
+			\cline{1-3}
+			$dir_f$ & $dir_i$ & $virar$             &  &  \\ \cline{1-3}
+			Norte   & Oeste   & VirarParaDireita    &  &  \\ \cline{1-3}
+			Norte   & Leste   & VirarParaEsquerda   &  &  \\ \cline{1-3}
+		    Oeste   & Sul     & VirarParaDireita    &  &  \\ \cline{1-3}
+			Oeste   & Norte   & VirarParaEsquerda   &  &  \\ \cline{1-3}
+			Sul     & Leste   & VirarParaDireita    &  &  \\ \cline{1-3}
+			Sul     & Oeste   & VirarParaEsquerda   &  &  \\ \cline{1-3}
+			Leste   & Norte   & VirarParaDireita    &  &  \\ \cline{1-3}
+			Leste   & Sul     & VirarParaEsquerda   &  &  \\ \cline{1-3}
 		\end{tabular}
 	\end{table}
 			 
