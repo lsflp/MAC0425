@@ -84,7 +84,7 @@
 	\end{prooftree}
 	
 	\qed
-
+	
 	\section*{Exercício 8.13}
 	
 	\textbf{a)}
@@ -141,12 +141,11 @@
 	
 	Logo, aqui teremos: 
 	
-	$\forall loc, s$ (Em$(Agente, loc, $resultado$(A, s)) \Rightarrow$ ViradoPara$(Agente, dir, S)) \Leftrightarrow ((\lnot$ Em$(Agente, loc, S) \land$ ViradoPara$(Agente, dir_f, S) \land A = IrParaFrente) \lor ($ Em$(Agente, loc, S) \land \lnot$ ViradoPara$(Agente, dir, S) \land A = virar)) \lor ($ Em$(Agente, loc, S) \land $ ViradoPara$(Agente, dir, S \land A \neq (VirarParaEsquerda \lor VirarParaDireita \lor IrParaFrente))$.
+	$\forall x, y, s$ (Em$(Agente, [x,y], $resultado$(A, s)) \Leftrightarrow ((($Em$(Agente, [x+1,y], S) \lor $ (Em$(Agente, [x,y+1], S) \lor $(Em$(Agente, [x-1,y], S) \lor $(Em$(Agente, [x,y-1], S)) \land A = IrParaFrente) \lor ($Em$(Agente, [x,y], S) \land A \neq IrParaFrente)$\\
 	
-	Note que temos $A = virar$ em nosso axioma. Ele depende da direção que o agente está virado em $S$ ($dir_i$) e da direção que o agente está virado em $S'$ ($dir_f$). A tabela de correspondências está na página seguinte.
+	$\forall s$ ViradoPara$(Agente, dir_f, resultado(A, s)) \Leftrightarrow $(ViradoPara$(Agente, dir_i, S)\land A = virar) \lor $ (ViradoPara$(Agente, dir_f, S) \land A \neq (VirarParaEsquerda \lor VirarParaDireita))$ \\
 	
-	
-	
+	Note que temos $A = virar$ em neste axioma. Ele depende da direção que o agente está virado em $S$ ($dir_i$) e da direção que o agente está virado em $S'$ ($dir_f$). A tabela de correspondências está na página seguinte.
 	
 	
 	\newpage 
