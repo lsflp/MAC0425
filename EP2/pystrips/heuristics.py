@@ -15,30 +15,43 @@ def h_add(state, planning):
 
     h = {}
 
+    for p in state:
+        h[p] = 0
+
     for p in planning.problem.goal:
-        if p in state:
-            h[p] = 0
-        else:
+        if p not in state:
             h[p] = float("inf")
 
-    X = state # X is a set of propositions
-    actions = planning.actions
-    condition = True
+    fixpoint = False
+    actions = planning.applicable(state)
 
-    while condition:
+    while not fixpoint:
         for action in actions:
-            if action.precond.issubset(X):
-                X = X.union(action.pos_effect)
-                for p in action.pos_effect:
-                    newSum = 1
-                    for q in action.precond:
-                        newSum += h.get(q)
-                    if (h.get(p) < newSum):
-                        result = 0
-                        for g in planning.problem.goal:
-                            result += h.get(g)
-                        return result
-                    h[p] = min(h.get(p), newSum)
+            newSum = 1
+            # Calculating sum of action preconditions
+            for p in action.precond:
+                # If precond not defined before, it is infinity.
+                # Infinity plus anything equals infinity.
+                if h.get(p) == None:
+                    newSum = float("inf")
+                    break
+                else:
+                    newSum += h.get(p)
+            fixpoint = True
+            for p in action.pos_effect:
+                if h.get(p) == None:
+                    h[p] = float("inf")
+                if newSum < h.get(p):
+                    h[p] = newSum
+                    fixpoint = False
+            if fixpoint:
+                break
+
+    # Since h(n) >= 0
+    heuristic = 0
+    for p in planning.problem.goal:
+        heuristic += h.get(p)
+    return heuristic
 
 def h_max(state, planning):
     '''
@@ -50,34 +63,44 @@ def h_max(state, planning):
 
     h = {}
 
+    for p in state:
+        h[p] = 0
+
     for p in planning.problem.goal:
-        if p in state:
-            h[p] = 0
-        else:
+        if p not in state:
             h[p] = float("inf")
 
-    X = state # X is a set of propositions
-    actions = planning.actions
-    condition = True
+    fixpoint = False
+    actions = planning.applicable(state)
 
-    while condition:
+    while not fixpoint:
         for action in actions:
-            if action.precond.issubset(X):
-                X = X.union(action.pos_effect)
-                for p in action.pos_effect:
-                    newSum = 1
-                    for q in action.precond:
-                        if (h.get(q) != None):
-                            newSum += h.get(q)
-                    if (h.get(p) != None and h.get(p) < newSum):
-                        result = -1
-                        for g in planning.problem.goal:
-                            if h.get(g) > result:
-                                result = h.get(g)
-                            return result
-                    if (h.get(p) != None):
-                        h[p] = min(h.get(p), newSum)
+            newSum = 1
+            # Calculating sum of action preconditions
+            for p in action.precond:
+                # If precond not defined before, it is infinity.
+                # Infinity plus anything equals infinity.
+                if h.get(p) == None:
+                    newSum = float("inf")
+                    break
+                else:
+                    newSum += h.get(p)
+            fixpoint = True
+            for p in action.pos_effect:
+                if h.get(p) == None:
+                    h[p] = float("inf")
+                if newSum < h.get(p):
+                    h[p] = newSum
+                    fixpoint = False
+            if fixpoint:
+                break
 
+    # Since h(n) >= 0
+    heuristic = -1
+    for p in planning.problem.goal:
+        if h.get(p) > heuristic:
+            heuristic = h.get(p)
+    return heuristic
 
 def h_ff(state, planning):
     '''
