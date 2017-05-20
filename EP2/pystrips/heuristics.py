@@ -1,5 +1,5 @@
 import util
-
+import sys
 
 def h_naive(state, planning):
     return 0
@@ -20,27 +20,28 @@ def h_add(state, planning):
 
     for p in planning.problem.goal:
         if p not in state:
-            h[p] = float("inf")
+            h[p] = sys.maxsize
 
     fixpoint = False
-    actions = planning.applicable(state)
+    X = state
 
     while not fixpoint:
-        for action in actions:
+        for action in planning.applicable(state):
+            X = X.union(action.pos_effect)
             newSum = 1
             # Calculating sum of action preconditions
             for p in action.precond:
                 # If precond not defined before, it is infinity.
                 # Infinity plus anything equals infinity.
                 if h.get(p) == None:
-                    newSum = float("inf")
+                    newSum = sys.maxsize
                     break
                 else:
                     newSum += h.get(p)
             fixpoint = True
             for p in action.pos_effect:
                 if h.get(p) == None:
-                    h[p] = float("inf")
+                    h[p] = sys.maxsize
                 if newSum < h.get(p):
                     h[p] = newSum
                     fixpoint = False
@@ -68,27 +69,28 @@ def h_max(state, planning):
 
     for p in planning.problem.goal:
         if p not in state:
-            h[p] = float("inf")
+            h[p] = sys.maxsize
 
     fixpoint = False
-    actions = planning.applicable(state)
+    X = state
 
     while not fixpoint:
-        for action in actions:
+        for action in planning.applicable(state):
+            X = X.union(action.pos_effect)
             newSum = 1
             # Calculating sum of action preconditions
             for p in action.precond:
                 # If precond not defined before, it is infinity.
                 # Infinity plus anything equals infinity.
                 if h.get(p) == None:
-                    newSum = float("inf")
+                    newSum = sys.maxsize
                     break
                 else:
                     newSum += h.get(p)
             fixpoint = True
             for p in action.pos_effect:
                 if h.get(p) == None:
-                    h[p] = float("inf")
+                    h[p] = sys.maxsize
                 if newSum < h.get(p):
                     h[p] = newSum
                     fixpoint = False
