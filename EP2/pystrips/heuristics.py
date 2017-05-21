@@ -1,9 +1,12 @@
+# Nome:   Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# Arquivo parte do EP2 de MAC0425
+
 import util
 import sys
 
 def h_naive(state, planning):
     return 0
-
 
 def h_add(state, planning):
     '''
@@ -23,16 +26,17 @@ def h_add(state, planning):
             h[p] = sys.maxsize
 
     fixpoint = False
+    newSum = 1
+
     X = state
 
     while not fixpoint:
-        for action in planning.applicable(state):
+        for action in planning.applicable(X):
             X = X.union(action.pos_effect)
-            newSum = 1
             # Calculating sum of action preconditions
             for p in action.precond:
-                # If precond not defined before, it is infinity.
-                # Infinity plus anything equals infinity.
+                # If precond not defined before, it is maximum value.
+                # Maximum value plus anything equals maximum value.
                 if h.get(p) == None:
                     newSum = sys.maxsize
                     break
@@ -45,8 +49,6 @@ def h_add(state, planning):
                 if newSum < h.get(p):
                     h[p] = newSum
                     fixpoint = False
-            if fixpoint:
-                break
 
     # Since h(n) >= 0
     heuristic = 0
@@ -61,7 +63,6 @@ def h_max(state, planning):
     OBSERVATION: It receives `planning` object in order
     to access the applicable actions and problem information.
     '''
-
     h = {}
 
     for p in state:
@@ -72,16 +73,17 @@ def h_max(state, planning):
             h[p] = sys.maxsize
 
     fixpoint = False
+    newSum = 1
+
     X = state
 
     while not fixpoint:
-        for action in planning.applicable(state):
+        for action in planning.applicable(X):
             X = X.union(action.pos_effect)
-            newSum = 1
             # Calculating sum of action preconditions
             for p in action.precond:
-                # If precond not defined before, it is infinity.
-                # Infinity plus anything equals infinity.
+                # If precond not defined before, it is maximum value.
+                # Maximum value plus anything equals maximum value.
                 if h.get(p) == None:
                     newSum = sys.maxsize
                     break
@@ -94,8 +96,6 @@ def h_max(state, planning):
                 if newSum < h.get(p):
                     h[p] = newSum
                     fixpoint = False
-            if fixpoint:
-                break
 
     # Since h(n) >= 0
     heuristic = -1

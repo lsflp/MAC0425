@@ -1,3 +1,6 @@
+# Nome:   Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# Arquivo parte do EP2 de MAC0425
 
 import util
 
@@ -107,7 +110,7 @@ class ProgressionPlanning(object):
         num_generated = 0
 
         start = Node(tuple(self._problem.init))
-        frontier = Frontier(f = lambda n: n.g + W*n.h)
+        frontier = Frontier(lambda node: node.g + W*node.h)
         frontier.push(start)
         explored = []
 
@@ -124,5 +127,4 @@ class ProgressionPlanning(object):
                 if child not in frontier and child not in explored:
                     num_generated += 1
                     frontier.push(child)
-
         return None

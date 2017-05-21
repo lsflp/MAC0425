@@ -1,3 +1,7 @@
+# Nome:   Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# Arquivo parte do EP2 de MAC0425
+
 from ply import lex
 from ply import yacc
 
