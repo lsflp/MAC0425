@@ -46,5 +46,66 @@
 	\section*{Exercício MDP}
 
 	\section*{Exercício Q-Learning}
+	
+	Para esse exercício vamos usar a fórmula do \textit{Q-value update}, que consiste em:
+	
+	\begin{center}
+		$Q(s,a) \leftarrow (1-\alpha)\cdot Q(s,a) + \alpha(r+\gamma\cdot max_{a'\in A}Q(s',a'))$
+	\end{center}
+	
+	O enunciado nos pede para usar $\alpha = 1$ e $\gamma = 0,9$. Com esses valores, nossa fórmula ficará: 
+	
+	\begin{center}
+		$Q(s,a) \leftarrow (r+0,9\cdot max_{a'\in A}Q(s',a'))$
+	\end{center}
+	
+	Começando com a tabela zerada e fazendo os cálculos para os episódios pedidos, teremos:
+	
+	\textbf{1.}
+	
+	$Q(3,S) = -10 + 0,9 \cdot 0 = -10$\\
+	$Q(3,N) = 0 + 0,9 \cdot 0 = 0$\\
+	$Q(1,N) = -10 + 0,9 \cdot 0 = -10$\\
+	$Q(1,O) = 10 + 0,9 \cdot 0 = 10$\\
+	
+	\textbf{2.}
+	
+	$Q(2,L) = 0 + 0,9 \cdot 0 = 0$\\
+	$Q(3,N) = 0 + 0,9 \cdot 0 = 0$\\
+	$Q(1,N) = -10 + 0,9 \cdot 0 = -10$\\
+	$Q(1,L) = -10 + 0,9 \cdot 0 = -10$\\	
+	$Q(1,O) = 10 + 0,9 \cdot 0 = 10$\\
+	
+	As tabelas finais Q dos episódios calculados estão na próxima página.
+	
+	\newpage
+
+	\begin{table}[]
+		\centering
+		\caption{Tabela do episódio da experiência 1}
+		\label{my-label}
+		\begin{tabular}{|l|l|l|l|l|}
+			\cline{1-5}
+			s/a  & \multicolumn{1}{|c|}{N}     & \multicolumn{1}{|c|}{S}       & L   & \multicolumn{1}{|c|}{O}     \\ \cline{1-5}
+			0    & \multicolumn{1}{|c|}{$0$}   & \multicolumn{1}{|c|}{$0$}     & $0$ & \multicolumn{1}{|c|}{$0$}   \\ \cline{1-5}
+			1    & \multicolumn{1}{|c|}{$-10$} & \multicolumn{1}{|c|}{$0$}     & $0$ & \multicolumn{1}{|c|}{$10$}  \\ \cline{1-5}
+			2    & \multicolumn{1}{|c|}{$0$}   & \multicolumn{1}{|c|}{$0$}     & $0$ & \multicolumn{1}{|c|}{$0$}   \\ \cline{1-5}
+			3    & \multicolumn{1}{|c|}{$0$}   & \multicolumn{1}{|c|}{$-10$}   & $0$ & \multicolumn{1}{|c|}{$0$}   \\ \cline{1-5}
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[]
+		\centering
+		\caption{Tabela do episódio da experiência 2}
+		\label{my-label}
+		\begin{tabular}{|l|l|l|l|l|}
+			\cline{1-5}
+			s/a  & \multicolumn{1}{|c|}{N}     & S       & \multicolumn{1}{|c|}{L}   & \multicolumn{1}{|c|}{O}     \\ \cline{1-5}
+			0    & \multicolumn{1}{|c|}{$0$}   & $0$   & \multicolumn{1}{|c|}{$0$}   & \multicolumn{1}{|c|}{$0$}   \\ \cline{1-5}
+			1    & \multicolumn{1}{|c|}{$-10$} & $0$   & \multicolumn{1}{|c|}{$-10$} & \multicolumn{1}{|c|}{$10$}  \\ \cline{1-5}
+			2    & \multicolumn{1}{|c|}{$0$}   & $0$   & \multicolumn{1}{|c|}{$0$}   & \multicolumn{1}{|c|}{$0$}   \\ \cline{1-5}
+			3    & \multicolumn{1}{|c|}{$0$}   & $0$   & \multicolumn{1}{|c|}{$0$}   & \multicolumn{1}{|c|}{$0$}   \\ \cline{1-5}
+		\end{tabular}
+	\end{table}
 
 \end{document}
