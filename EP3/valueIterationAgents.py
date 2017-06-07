@@ -62,6 +62,7 @@ class ValueIterationAgent(ValueEstimationAgent):
           Compute the Q-value of action in state from the
           value function stored in self.values.
         """
+        
         QValue = 0
         for nextState, probability in self.mdp.getTransitionStatesAndProbs(state, action):
             reward = self.mdp.getReward(state, action, nextState)
