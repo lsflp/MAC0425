@@ -1,3 +1,7 @@
+# Nome:   Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# Arquivo parte do EP3 de MAC0425
+
 # valueIterationAgents.py
 # -----------------------
 # Licensing Information:  You are free to use or extend these projects for
@@ -48,7 +52,7 @@ class ValueIterationAgent(ValueEstimationAgent):
             for state in self.mdp.getStates():
                 actions = self.mdp.getPossibleActions(state)
                 if len(actions) != 0:
-                    V_k[state] = max(self.computeQValueFromValues(state, action) for action in actions)
+                    V_k[state] = max(self.getQValue(state, action) for action in actions)
             self.values = V_k
 
     def getValue(self, state):
@@ -62,11 +66,10 @@ class ValueIterationAgent(ValueEstimationAgent):
           Compute the Q-value of action in state from the
           value function stored in self.values.
         """
-        
         QValue = 0
-        for nextState, probability in self.mdp.getTransitionStatesAndProbs(state, action):
+        for nextState, p in self.mdp.getTransitionStatesAndProbs(state, action):
             reward = self.mdp.getReward(state, action, nextState)
-            QValue += probability*(reward + self.discount*self.getValue(nextState))
+            QValue += p*(reward + self.discount*self.getValue(nextState))
         return QValue
 
     def computeActionFromValues(self, state):
@@ -83,7 +86,7 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         QValues = util.Counter()
         for action in self.mdp.getPossibleActions(state):
-            QValues[action] = self.computeQValueFromValues(state, action)
+            QValues[action] = self.getQValue(state, action)
         return QValues.argMax()
 
     def getPolicy(self, state):

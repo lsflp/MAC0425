@@ -1,3 +1,7 @@
+# Nome:   Luis Felipe de Melo Costa Silva
+# N. USP: 9297961
+# Arquivo parte do EP3 de MAC0425
+
 # analysis.py
 # -----------
 # Licensing Information:  You are free to use or extend these projects for
@@ -20,7 +24,6 @@
 # value iteration.
 
 def question3a():
-    '''certo'''
     answerDiscount = 0.01
     answerNoise = 0
     answerLivingReward = 0
@@ -28,10 +31,9 @@ def question3a():
     # If not possible, return 'NOT POSSIBLE'
 
 def question3b():
-    '''certo'''
     answerDiscount = 0.01
     answerNoise = 0.01
-    answerLivingReward = 0
+    answerLivingReward = 0.9
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
@@ -50,7 +52,6 @@ def question3d():
     # If not possible, return 'NOT POSSIBLE'
 
 def question3e():
-    '''certo'''
     answerDiscount = 0
     answerNoise = 0
     answerLivingReward = 0
